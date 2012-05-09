@@ -16,8 +16,10 @@ ActiveRecord::Schema.define(:version => 20120509090951) do
   create_table "torrents", :force => true do |t|
     t.string   "name"
     t.string   "info_hash"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "magnet_link"
+    t.string   "file_content"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "users", :force => true do |t|
