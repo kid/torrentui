@@ -1,4 +1,6 @@
 Torrentui::Application.routes.draw do
+  devise_for :users
+
   resources :torrents
 
   # The priority is based upon order of creation:

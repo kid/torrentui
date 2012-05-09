@@ -1,4 +1,6 @@
 class TorrentsController < ApplicationController
+  before_filter :authenticate_user!
+  
   # GET /torrents
   # GET /torrents.json
   def index
