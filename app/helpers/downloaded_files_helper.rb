@@ -1,0 +1,2 @@
+module DownloadedFilesHelper
+end

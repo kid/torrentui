@@ -1,85 +1,85 @@
 class TorrentsController < ApplicationController
-  before_filter :authenticate_user!
+  respond_to :json, :html
   
   # GET /torrents
   # GET /torrents.json
   def index
-    @torrents = Torrent.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @torrents }
+    @torrents = Torrent.includes(:category, :downloaders => [:user]).all
+    
+    live_data = transmission.request('torrent-get', :fields => [:hashString, :status, :rateDownload, :rateUpload, :percentDone])
+    
+    for t in @torrents
+      data = live_data['torrents'].detect { |d| t.info_hash == d['hashString'] }
+      if data
+        t.rate_download = data['rateDownload']
+        t.rate_upload = data['rateUpload']
+        t.percent_done = data['percentDone'] * 100
+      end
     end
+    
+    respond_with @torrent
   end
 
   # GET /torrents/1
   # GET /torrents/1.json
   def show
     @torrent = Torrent.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @torrent }
-    end
+    respond_with @torrent
   end
 
   # GET /torrents/new
   # GET /torrents/new.json
   def new
     @torrent = Torrent.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @torrent }
-    end
+    respond_with @torrent
   end
 
   # GET /torrents/1/edit
   def edit
     @torrent = Torrent.find(params[:id])
+    respond_with @torrent
   end
 
   # POST /torrents
   # POST /torrents.json
   def create
-    @torrent = Torrent.new(params[:torrent])
-
-    respond_to do |format|
-      if @torrent.save
-        format.html { redirect_to @torrent, notice: 'Torrent was successfully created.' }
-        format.json { render json: @torrent, status: :created, location: @torrent }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @torrent.errors, status: :unprocessable_entity }
+    @torrent = Torrent.new params[:torrent].except(:url, :file)
+    @torrent.downloaders << Downloader.new(:user_id => current_user.id)
+    
+    link = params[:torrent][:url]
+    if /magnet\:\?xt=urn\:btih\:(\h{40})/ =~ link
+      @torrent.info_hash = $1.downcase#, :category_id => params[:torrent][:cateogry_id]
+      if @torrent.valid?
+        result = transmission.torrent_add link
+        
+        if result['torrent-added']
+          flash[:notice] = 'Torrent was successfully created.' if @torrent.save
+          @torrent.delay.get_details_from_transmission
+        end
       end
     end
+    
+    respond_with @torrent
   end
 
   # PUT /torrents/1
   # PUT /torrents/1.json
   def update
     @torrent = Torrent.find(params[:id])
-
-    respond_to do |format|
-      if @torrent.update_attributes(params[:torrent])
-        format.html { redirect_to @torrent, notice: 'Torrent was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @torrent.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = 'Torrent was successfully updated.' if @torrent.update_attributes params[:torrent]
+    respond_with @torrent
   end
 
   # DELETE /torrents/1
   # DELETE /torrents/1.json
   def destroy
     @torrent = Torrent.find(params[:id])
-    @torrent.destroy
-
-    respond_to do |format|
-      format.html { redirect_to torrents_url }
-      format.json { head :no_content }
-    end
+    flash[:notice] = 'Torrent was successfuly destroyed' if @torrent.destroy
+    respond_with @torrent
+  end
+  
+  private
+  def transmission
+    @client ||= Transmission::Client.new(AppSettings.transmission_rpc_host, AppSettings.transmission_rpc_port)
   end
 end

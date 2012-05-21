@@ -8,6 +8,24 @@
   <dd><%= @torrent.info_hash %></dd>
 </dl>
 
+<table class="table table-striped table-bordered table-condensed">
+  <tr>
+    <th colspan="3">Files</th>
+  </tr>
+  <tr>
+    <th>Name</th>
+    <th>Length</th>
+    <th></th>
+  </tr>
+  <% for file in @torrent.downloaded_files do %>
+  <tr>
+    <td><%= file.path %></td>
+    <td><%= number_to_human_size file.length %></td>
+    <td><%= link_to 'Download', download_torrent_downloaded_file_path(@torrent, file), :class => 'btn btn-primary btn-mini' %></td>
+  </tr>
+  <% end %>
+</table>
+
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               torrents_path, :class => 'btn'  %>

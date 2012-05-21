@@ -14,3 +14,19 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require_tree .
+
+$(document).ready(function() {
+  // $('body').on('dragenter', function(e) {
+  //   $('#new-torrent-dialog').modal()
+  //   
+  //   return false;
+  // });
+  // 
+  // $('body').on('dragover', false);
+  // 
+  // $('body').on('drop', function(e) {
+  //   alert('dropped')
+  //   
+  //   return false;
+  // });
+});

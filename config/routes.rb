@@ -1,7 +1,17 @@
 Torrentui::Application.routes.draw do
+  root :to => 'torrents#index'
+  
+  resources :downloaded_files
+
+  resources :categories
+
   devise_for :users
 
-  resources :torrents
+  resources :torrents do
+    resources :downloaded_files do
+      get 'download', :on => :member
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

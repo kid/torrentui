@@ -9,6 +9,9 @@ gem 'sqlite3'
 
 gem 'simple_form'
 gem 'devise'
+gem 'delayed_job_active_record'
+gem 'daemons'
+gem "rails-settings", :git => "git://github.com/100hz/rails-settings.git"
 
 # Gems used only for assets and not required
 # in production environments by default.

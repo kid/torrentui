@@ -3,20 +3,24 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:info_hash) %></th>
+      <th>Users</th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th>Download rate</th>
+      <th>Upload rate</th>
+      <th>Percent done</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @torrents.each do |torrent| %>
       <tr>
-        <td><%= link_to torrent.id, torrent_path(torrent) %></td>
-        <td><%= torrent.name %></td>
-        <td><%= torrent.info_hash %></td>
+        <td><%= link_to torrent.name, torrent_path(torrent) %></td>
+        <td><%= torrent.downloaders.collect { |d| d.user.username }.join(', ') %></td>
         <td><%=l torrent.created_at %></td>
+        <td><%= number_to_human_size torrent.rate_download %></td>
+        <td><%= number_to_human_size torrent.rate_upload %></td>
+        <td><%= torrent.percent_done ? "#{torrent.percent_done}%" : "" %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_torrent_path(torrent), :class => 'btn btn-mini' %>
