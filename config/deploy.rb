@@ -3,7 +3,7 @@ require "bundler/capistrano"
 server "kidibox", :web, :app, :db, primary: true
 
 set :application, "torrentui"
-set :user, "torrentui"
+set :user, "p2p"
 set :deploy_to, "/home/#{user}/apps/#{application}"
 set :deploy_via, :remote_cache
 set :use_sudo, false
