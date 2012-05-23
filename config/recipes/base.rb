@@ -3,6 +3,10 @@ def template(from, to)
   put ERB.new(erb).result(binding), to
 end
 
+def remote_file_exists?(full_path)
+  'true' ==  capture("if [ -e #{full_path} ]; then echo 'true'; fi").strip
+end
+
 def set_default(name, *args, &block)
   set(name, *args, &block) unless exists?(name)
 end
