@@ -47,7 +47,7 @@ class TorrentsController < ApplicationController
     @torrent.downloaders << Downloader.new(:user_id => current_user.id)
     
     link = params[:torrent][:url]
-    if /magnet\:\?xt=urn\:btih\:(\h{40})/ =~ link
+    if /magnet\:\?xt=urn\:btih\:([0-9a-zA-Z]+)/ =~ link
       @torrent.info_hash = $1.downcase#, :category_id => params[:torrent][:cateogry_id]
       if @torrent.valid?
         result = transmission.torrent_add link
