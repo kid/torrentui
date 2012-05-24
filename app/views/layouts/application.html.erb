@@ -63,11 +63,27 @@
           <select></select>
           <a href="#" class="btn" >Add</button>
         </form> -->
+        <%- @torrent ||= Torrent.new %>
+        <%= simple_form_for @torrent, :html => { :class => 'form-horizontal' } do |f| %>
+        <fieldset>
+          <!-- <legend><%= controller.action_name.capitalize%> Torrent</legend> -->
+  
+          <div class="control-group required">
+            <label class="required control-label required" for="torrent_url">Url</label>
+            <div class="controls">
+              <input type="text" name="torrent[url]" id="torrent_url">
+            </div>
+          </div>
+  
+          <%= f.association :category %>
+        </fieldset>
       </div>
       <div class="modal-footer">
-        <a href="#" class="btn" data-dismiss="modal">Cancel</a>
-        <a href="#" class="btn btn-primary">Add all</a>
+        <%= f.submit nil, :class => 'btn btn-primary' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")), torrents_path, :class => 'btn' %>
       </div>
+      <% end %>
+      
     </div>
 
     <!-- Javascripts
