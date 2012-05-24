@@ -51,8 +51,11 @@ class TorrentsController < ApplicationController
       @torrent.info_hash = $1.downcase#, :category_id => params[:torrent][:cateogry_id]
       if @torrent.valid?
         result = transmission.torrent_add link
-        
+        puts result
         if result['torrent-added']
+          if result['torrent-added']['hashString'] != @torrent.info_hash
+            @torrent.info_hash = result['torrent-added']['hashString']
+          end
           flash[:notice] = 'Torrent was successfully created.' if @torrent.save
           @torrent.delay.get_details_from_transmission
         end

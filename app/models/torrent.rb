@@ -1,5 +1,5 @@
 class Torrent < ActiveRecord::Base
-  attr_readonly :info_hash
+  # attr_readonly :info_hash
   attr_accessible :name, :category_id
   attr_accessor :url, :file, :rate_download, :rate_upload, :percent_done
 
