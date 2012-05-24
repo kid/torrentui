@@ -12,6 +12,8 @@ Torrentui::Application.routes.draw do
       get 'download', :on => :member
     end
   end
+  
+  match '/admin/jobs' => DelayedJobWeb, :anchor => false
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

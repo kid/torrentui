@@ -6,8 +6,7 @@
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th>Users</th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th>Download rate</th>
-      <th>Upload rate</th>
+      <th>Rates (Down / Up)</th>
       <th>Percent done</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -18,9 +17,8 @@
         <td><%= link_to torrent.name, torrent_path(torrent) %></td>
         <td><%= torrent.downloaders.collect { |d| d.user.username }.join(', ') %></td>
         <td><%=l torrent.created_at %></td>
-        <td><%= number_to_human_size torrent.rate_download %></td>
-        <td><%= number_to_human_size torrent.rate_upload %></td>
-        <td><%= torrent.percent_done ? "#{torrent.percent_done}%" : "" %></td>
+        <td><%= number_to_human_size torrent.rate_download %> / <%= number_to_human_size torrent.rate_upload %></td>
+        <td><%= torrent.percent_done ? "#{torrent.percent_done.round(2)}%" : "" %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_torrent_path(torrent), :class => 'btn btn-mini' %>
