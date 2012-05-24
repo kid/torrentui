@@ -3,12 +3,13 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  
+  attr_accessor :login
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :username, :email, :password, :password_confirmation, :remember_me
+  attr_accessible :login, :username, :email, :password, :password_confirmation, :remember_me
 
   # Virtual attribute for authenticating by either username or email
-  attr_accessor :login
 
   has_many :torrents, :through => :downloaders
   
