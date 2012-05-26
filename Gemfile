@@ -13,6 +13,7 @@ gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 gem 'daemons'
 gem "rails-settings", :git => "git://github.com/100hz/rails-settings.git"
+gem 'base32'
 
 # Gems used only for assets and not required
 # in production environments by default.

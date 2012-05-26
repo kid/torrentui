@@ -48,14 +48,10 @@ class TorrentsController < ApplicationController
     
     link = params[:torrent][:url]
     if /magnet\:\?xt=urn\:btih\:([0-9a-zA-Z]+)/ =~ link
-      @torrent.info_hash = $1.downcase#, :category_id => params[:torrent][:cateogry_id]
+      @torrent.info_hash = $1.downcase.length == 32 ? Base32.decode($1).unpack('H*')[0].downcase : $1.downcase
       if @torrent.valid?
         result = transmission.torrent_add link
-        puts result
         if result['torrent-added']
-          if result['torrent-added']['hashString'] != @torrent.info_hash
-            @torrent.info_hash = result['torrent-added']['hashString']
-          end
           flash[:notice] = 'Torrent was successfully created.' if @torrent.save
           @torrent.delay.get_details_from_transmission
         end
