@@ -7,6 +7,8 @@ server {
   # server_name example.com;
   root <%= current_path %>/public;
 
+  sendfile on;
+
   location ^~ /assets/ {
     gzip_static on;
     expires max;
