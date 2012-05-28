@@ -13,7 +13,6 @@
 
     <%= stylesheet_link_tag "application", :media => "all" %>
 
-    <link href="images/favicon.ico" rel="shortcut icon">
     <link href="images/apple-touch-icon.png" rel="apple-touch-icon">
     <link href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
     <link href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
@@ -52,22 +51,22 @@
 
     </div> <!-- /container -->
 
+    <%- @torrent ||= Torrent.new %>
+    <%= simple_form_for @torrent, :html => { :class => 'form-horizontal', :multipart => true } do |f| %>
     <div id="new-torrent-dialog" class="modal hide fade">
-      <%- @torrent ||= Torrent.new %>
-      <%= simple_form_for @torrent, :html => { :class => 'form-horizontal' } do |f| %>
       <div class="modal-header">
         <button class="close" data-dismiss="modal">x</button>
         <h3>Add torrent(s)</h1>
       </div>
       <div class="modal-body">
-        <!-- <form class="form-inline">
-          <input type="file" class="input-file">
-          <select></select>
-          <a href="#" class="btn" >Add</button>
-        </form> -->
         <fieldset>
-          <!-- <legend><%= controller.action_name.capitalize%> Torrent</legend> -->
-  
+          <div class="control-group required">
+            <label class="required control-label required" for="torrent_file">File</label>
+            <div class="controls">
+              <input type="file" name="torrent[file]" id="torrent_file">
+            </div>
+          </div>
+          
           <div class="control-group required">
             <label class="required control-label required" for="torrent_url">Url</label>
             <div class="controls">
@@ -82,9 +81,9 @@
         <%= f.submit nil, :class => 'btn btn-primary' %>
         <%= link_to t('.cancel', :default => t("helpers.links.cancel")), torrents_path, :class => 'btn' %>
       </div>
-      <% end %>
     </div>
-
+    <% end %>
+    
     <!-- Javascripts
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

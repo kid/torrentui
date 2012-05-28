@@ -19,11 +19,15 @@ module Transmission
     end
     
     def torrent_get(info_hash)
-      request 'torrent-get',  { :fields => TORRENT_ARGS }
+      request 'torrent-get',  {:fields => TORRENT_ARGS}
     end
     
-    def torrent_add(url)
+    def torrent_add_url(url)
       request 'torrent-add', {:filename => url}
+    end
+    
+    def torrent_add_file(file_content)
+      request 'torrent-add', {:metainfo => Base64.encode64(file_content)}
     end
     
     def request(method, args={})

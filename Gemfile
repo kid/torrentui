@@ -12,9 +12,15 @@ gem 'devise'
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 gem 'daemons'
-gem "rails-settings", :git => "git://github.com/100hz/rails-settings.git"
+gem 'rails-settings', :git => 'git://github.com/100hz/rails-settings.git'
 gem 'base32'
+gem 'bencode'
 
+group :development do
+  gem 'thin'
+  gem 'quiet_assets'
+end
+ 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

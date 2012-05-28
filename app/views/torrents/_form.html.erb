@@ -1,6 +1,13 @@
-<%= simple_form_for @torrent, :html => { :class => 'form-horizontal' } do |f| %>
+<%= simple_form_for @torrent, :html => { :class => 'form-horizontal', :multipart => true } do |f| %>
 <fieldset>
   <legend><%= controller.action_name.capitalize%> Torrent</legend>
+  
+  <div class="control-group required">
+    <label class="required control-label required" for="torrent_file">File</label>
+    <div class="controls">
+      <input type="file" name="torrent[file]" id="torrent_file">
+    </div>
+  </div>  
   
   <div class="control-group required">
     <label class="required control-label required" for="torrent_url">Url</label>
@@ -8,14 +15,6 @@
       <input type="text" name="torrent[url]" id="torrent_url">
     </div>
   </div>
-  
-  <!-- <div class="control-group required">
-    <label class="required control-label required" for="torrent_file">File</label>
-    <div class="controls">
-      <input type="file" name="torrent[file]" id="torrent_file">
-    </div>
-  </div> -->
-  
   
   <%= f.association :category %>
   

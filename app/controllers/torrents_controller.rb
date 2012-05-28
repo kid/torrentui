@@ -45,15 +45,31 @@ class TorrentsController < ApplicationController
   def create
     @torrent = Torrent.new params[:torrent].except(:url, :file)
     @torrent.downloaders << Downloader.new(:user_id => current_user.id)
-    
-    link = params[:torrent][:url]
-    if /magnet\:\?xt=urn\:btih\:([0-9a-zA-Z]+)/ =~ link
-      @torrent.info_hash = $1.downcase.length == 32 ? Base32.decode($1).unpack('H*')[0].downcase : $1.downcase
+
+    if params[:torrent][:url].blank?
+      file_content = params[:torrent][:file].read
+      info = BEncode.load(file_content)['info']
+      
+      @torrent.name = info['name']
+      @torrent.info_hash = Digest::SHA1.hexdigest(info.bencode)
+      
       if @torrent.valid?
-        result = transmission.torrent_add link
+        result = transmission.torrent_add_file(file_content)
         if result['torrent-added']
           flash[:notice] = 'Torrent was successfully created.' if @torrent.save
           @torrent.delay.get_details_from_transmission
+        end
+      end
+    else
+      link = params[:torrent][:url]
+      if /magnet\:\?xt=urn\:btih\:([0-9a-zA-Z]+)/ =~ link
+        @torrent.info_hash = $1.downcase.length == 32 ? Base32.decode($1).unpack('H*')[0].downcase : $1.downcase
+        if @torrent.valid?
+          result = transmission.torrent_add_url link
+          if result['torrent-added']
+            flash[:notice] = 'Torrent was successfully created.' if @torrent.save
+            @torrent.delay.get_details_from_transmission
+          end
         end
       end
     end
