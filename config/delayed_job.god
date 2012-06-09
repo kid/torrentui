@@ -1,9 +1,9 @@
 rails_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 
-20.times do |num|
+1.times do |num|
   God.watch do |w|
-    w.name     = "dj-#{num}"
-    w.group    = 'dj'
+    w.name     = "delayed_job-#{num}"
+    w.group    = 'delayed_job'
     w.interval = 30.seconds
     w.start    = "rake -f #{rails_root}/Rakefile development jobs:work"
 
