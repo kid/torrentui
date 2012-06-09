@@ -4,8 +4,9 @@ class Torrent < ActiveRecord::Base
   attr_accessor :url, :file, :rate_download, :rate_upload, :percent_done
 
   belongs_to :category
-  has_many :downloaded_files, :dependent => :destroy
   has_many :downloaders
+  has_many :downloaded_files, :dependent => :destroy
+  has_many :extracted_files, :dependent => :destroy
   
   def get_details_from_transmission
     return if self.downloaded_files.count > 0

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  path: MyString
+  length: 9.99
+  torrent_id: 1
+
+two:
+  path: MyString
+  length: 9.99
+  torrent_id: 1

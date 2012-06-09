@@ -1,0 +1,44 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          god
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Manage god server
+# Description:       Start, stop, restart god for a specific application.
+### END INIT INFO
+
+CONF_DIR=<%= current_path %>/config
+GOD_BIN=/home/<%= user %>/.rbenv/shims/god
+RETVAL=0
+
+# Go no further if config directory is missing.
+[ -d "$CONF_DIR" ] || exit 0
+
+case "$1" in
+    start)
+      # Create pid directory
+      $GOD_BIN -c $CONF_DIR/master.god
+      RETVAL=$?
+  ;;
+    stop)
+      $GOD_BIN terminate
+      RETVAL=$?
+  ;;
+    restart)
+      $GOD_BIN terminate
+      $GOD_BIN -c $CONF_DIR/master.god
+      RETVAL=$?
+  ;;
+    status)
+      $GOD_BIN status
+      RETVAL=$?
+  ;;
+    *)
+      echo "Usage: god {start|stop|restart|status}"
+      exit 1
+  ;;
+esac
+
+exit $RETVAL

@@ -8,4 +8,8 @@ class DownloadedFile < ActiveRecord::Base
   def full_path
     File.expand_path File.join(AppSettings.transmission_download_dir, self.path)
   end
+  
+  def extract
+  	
+  end
 end
