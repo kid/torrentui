@@ -18,7 +18,7 @@ namespace :god do
   %w[start stop restart].each do |command|
     desc "#{command} unicorn"
     task command, roles: :app do
-      run "service god_#{application} #{command}"
+      run "#{sudo} service god_#{application} #{command}"
     end
     after "deploy:#{command}", "unicorn:#{command}"
   end
