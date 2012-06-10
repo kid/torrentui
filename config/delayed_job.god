@@ -5,7 +5,7 @@ rails_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
     w.name     = "delayed_job-#{num}"
     w.group    = 'delayed_job'
     w.interval = 30.seconds
-    w.start    = "rake -f #{rails_root}/Rakefile production jobs:work"
+    w.start    = "RAILS_ENV=production /home/p2p/.rbenv/versions/1.9.3-p125/bin/rake -f #{rails_root}/Rakefile jobs:work"
 
     w.uid = 'p2p'
     w.gid = 'sudo'
