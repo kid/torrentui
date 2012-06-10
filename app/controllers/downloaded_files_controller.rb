@@ -8,8 +8,10 @@ class DownloadedFilesController < ApplicationController
 
   def download
     @download = DownloadedFile.find(params[:id])
+    path = File.join(AppSettings.transmission_download_dir, @download.path)
     response.header["Accept-Ranges"] = "bytes"
-    send_file File.join(AppSettings.transmission_download_dir, @download.path)
+    response.header["Content-Length"] = File.size(path)
+    send_file path
   end
 
   private
