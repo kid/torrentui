@@ -1,14 +1,30 @@
-rails_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+RAILS_ROOT = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+PID_DIR = File.join(RAILS_ROOT, 'tmp/pids')
+LOG_DIR = File.join(RAILS_ROOT, 'log')
+CMD_PREFIX = "PATH=/home/p2p/.rbenv/shims:/home/p2p/.rbenv/bin:$PATH"
+CMD = "#{CMD_PREFIX}; cd #{RAILS_ROOT}; /usr/bin/env RAILS_ENV=production #{RAILS_ROOT}/script/delayed_job"
+
 
 1.times do |num|
   God.watch do |w|
     w.name     = "delayed_job-#{num}"
     w.group    = 'delayed_job'
     w.interval = 30.seconds
-    w.start    = "RAILS_ENV=production /home/p2p/.rbenv/versions/1.9.3-p125/bin/rake -f #{rails_root}/Rakefile jobs:work"
 
     w.uid = 'p2p'
     w.gid = 'sudo'
+
+    w.start = "#{CMD} -i #{num} --pid-dir=#{PID_DIR} start" 
+    w.start_grace = 30.seconds 
+    w.restart_grace = 30.seconds 
+
+    w.stop = "#{CMD} stop" 
+    
+    w.log = "#{LOG_DIR}/delayed_job.#{num}.log" 
+    w.pid_file = "#{PID_DIR}/delayed_job.#{num}.pid"
+
+    w.interval = 15.seconds 
+    w.behavior(:clean_pid_file) 
 
     # retart if memory gets too high
     w.transition(:up, :restart) do |on|
