@@ -26,7 +26,6 @@ class DownloadedFilesController < ApplicationController
       response.header["Content-Range"] = "bytes " + file_begin.to_s + "-" + file_end.to_s + "/" + file_size.to_s
     end
     response.header["Content-Length"] = (file_end.to_i - file_begin.to_i + 1).to_s
-    response.header["Last-Modified"] = @media.file_updated_at.to_s
 
     response.header["Cache-Control"] = "public, must-revalidate, max-age=0"
     response.header["Pragma"] = "no-cache"
