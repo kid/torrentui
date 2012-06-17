@@ -9,7 +9,7 @@ Torrentui::Application.routes.draw do
 
   resources :torrents do
     resources :downloaded_files do
-      get 'download', :on => :member
+      match ':action/*path', :on => :member
     end
   end
   

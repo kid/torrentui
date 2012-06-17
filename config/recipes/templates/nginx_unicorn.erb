@@ -14,6 +14,11 @@ server {
     expires max;
     add_header Cache-Control public;
   }
+  
+  location ~ /downloads/(.*) {
+    internal;
+    alias /home/<%= user %>/transmission/downloads/$1;
+  }
 
   try_files $uri/index.html $uri @unicorn;
   location @unicorn {
@@ -21,6 +26,9 @@ server {
     proxy_set_header Host $http_host;
     proxy_redirect off;
     proxy_pass http://unicorn;
+    
+    proxy_set_header X-Sendfile-Type X-Accel-Redirect;
+    proxy_set_header X-Accel-Mapping /downloads/=/home/<%= user %>/transmission/downloads/;
   }
 
   error_page 500 502 503 504 /500.html;

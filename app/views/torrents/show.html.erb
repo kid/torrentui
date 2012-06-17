@@ -21,7 +21,7 @@
   <tr>
     <td><%= file.path %></td>
     <td><%= number_to_human_size file.length %></td>
-    <td><%= link_to 'Download', download_torrent_downloaded_file_path(@torrent, file), :class => 'btn btn-primary btn-mini' %></td>
+    <td><%= link_to 'Download', "/torrents/#{@torrent.id}/downloaded_files/#{file.id}/download/#{file.file_name}", :class => 'btn btn-primary btn-mini' %></td>
   </tr>
   <% end %>
 </table>
