@@ -10,7 +10,14 @@ Torrentui::Application.routes.draw do
   resources :torrents do
     resources :downloaded_files do
       match ':action/*path', :on => :member
+      
+      get :extract, :on => :member
     end
+    
+    resources :extracted_files do
+      match ':action/*path', :on => :member
+    end
+    
   end
   
   match '/admin/jobs' => DelayedJobWeb, :anchor => false

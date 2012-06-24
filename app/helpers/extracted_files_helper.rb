@@ -1,0 +1,2 @@
+module ExtractedFilesHelper
+end

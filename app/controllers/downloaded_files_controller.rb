@@ -1,5 +1,4 @@
 class DownloadedFilesController < ApplicationController
-  skip_before_filter :authenticate_user!
   respond_to :json, :html
 
   def index
@@ -8,12 +7,22 @@ class DownloadedFilesController < ApplicationController
   end
   
   def download
-    @download = DownloadedFile.find(params[:id])
+    @file = DownloadedFile.find(params[:id])
     
     response.header["Accept-Ranges"]=  "bytes"
     response.header["Content-Transfer-Encoding"] = "binary"
 
-    send_file(@download.absolute_path, :url_based_filename => true)
+    send_file(@file.absolute_path, :url_based_filename => true)
+  end
+  
+  def extract
+    @file = DownloadedFile.find(params[:id])
+    if @file.is_archive?
+      flash[:notice] = 'Extraction in progress...'
+      @file.delay.extract 
+    end
+    
+    redirect_to torrent_path(params[:torrent_id])
   end
 
   private

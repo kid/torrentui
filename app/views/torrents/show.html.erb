@@ -21,10 +21,34 @@
   <tr>
     <td><%= file.path %></td>
     <td><%= number_to_human_size file.length %></td>
-    <td><%= link_to 'Download', "/torrents/#{@torrent.id}/downloaded_files/#{file.id}/download/#{file.file_name}", :class => 'btn btn-primary btn-mini' %></td>
+    <td>
+      <%= link_to 'Download', "/torrents/#{@torrent.id}/downloaded_files/#{file.id}/download/#{file.file_name}", :class => 'btn btn-primary btn-mini' %>
+      <% if file.is_archive? %>
+      <%= link_to 'Extract', extract_torrent_downloaded_file_path(@torrent, file), :class => 'btn btn-mini' %>
+      <% end %>
+    </td>
   </tr>
   <% end %>
 </table>
+
+<table class="table table-striped table-bordered table-condensed">
+  <tr>
+    <th colspan="3">Extracted Files</th>
+  </tr>
+  <tr>
+    <th>Name</th>
+    <th>Length</th>
+    <th></th>
+  </tr>
+  <% for file in @torrent.extracted_files do %>
+  <tr>
+    <td><%= file.path %></td>
+    <td><%= number_to_human_size file.length %></td>
+    <td><%= link_to 'Download', "/torrents/#{@torrent.id}/extracted_files/#{file.id}/download/#{file.file_name}", :class => 'btn btn-primary btn-mini' %></td>
+  </tr>
+  <% end %>
+</table>
+
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
