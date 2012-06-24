@@ -11,7 +11,7 @@ namespace :transmission do
 
   desc "Setup transmission configuration for this application"
   task :setup, roles: :app do
-    run "mkdir -p /home/#{user}/transmission"
+    run "mkdir -p /home/#{user}/transmission/downloads/extracted"
     template "transmission_settings.json.erb", "/home/#{user}/transmission/settings.json"
   end
   after "deploy:setup", "transmission:setup"
