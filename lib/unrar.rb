@@ -22,7 +22,7 @@ class Unrar
   end
 
   def extract(file, dest = nil)
-    Open3.popen3('unrar', '-y', 'x', @archive, file, dest || '.') { |stdin, stdout, stderr, wait_thread|
+    Open3.popen3('unrar', '-y', 'e', @archive, file, :chdir => dest || '.') { |stdin, stdout, stderr, wait_thread|
       unless wait_thread.value == 0
         raise stderr.read()
       end
