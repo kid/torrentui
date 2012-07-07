@@ -8,6 +8,9 @@ Torrentui::Application.routes.draw do
   devise_for :users
 
   resources :torrents do
+    post :start, :on => :member
+    post :stop, :on => :member
+    
     resources :downloaded_files do
       match ':action/*path', :on => :member
       

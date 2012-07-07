@@ -93,6 +93,20 @@ class TorrentsController < ApplicationController
     respond_with @torrent
   end
   
+  def start
+    @torrent = Torrent.find(params[:id])
+    transmission.torrent_start(@torrent.info_hash)
+    flash[:notice] = 'Torrent was successfully started'
+    redirect_to :action => 'index'
+  end
+  
+  def stop
+    @torrent = Torrent.find(params[:id])
+    transmission.torrent_stop(@torrent.info_hash)
+    flash[:notice] = 'Torrent was successfully stopped'
+    redirect_to :action => 'index'
+  end
+  
   private
   def transmission
     @client ||= Transmission::Client.new(AppSettings.transmission_rpc_host, AppSettings.transmission_rpc_port)

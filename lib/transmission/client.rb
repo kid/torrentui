@@ -22,6 +22,18 @@ module Transmission
       request 'torrent-get',  {:fields => TORRENT_ARGS}
     end
     
+    def torrent_start(info_hash)
+      request 'torrent-start', {:ids => [info_hash]}
+    end
+    
+    def torrent_stop(info_hash)
+      request 'torrent-stop', {:ids => [info_hash]}
+    end
+    
+    def torrent_remove(info_hash, delete_data = false)
+      request 'torrent-remove', {:ids => [info_hash], 'delete-local-data' => delete_data}
+    end
+    
     def torrent_add_url(url)
       request 'torrent-add', {:filename => url}
     end
