@@ -23,7 +23,9 @@ class DownloadedFile < ActiveRecord::Base
     unrar = Unrar::new(absolute_path)
     unrar.list.each do |f|
       if unrar.extract(f[:path], AppSettings.extract_files_destination)
-        torrent.extracted_files << ExtractedFile::new(f)
+        extracted = ExtractedFile::new(f)
+        raise "File not found." unless File.exist? extracted.absolute_path
+        torrent.extracted_files << extracted
         torrent.save
       end
     end

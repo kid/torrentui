@@ -11,6 +11,7 @@ class TorrentsController < ApplicationController
     for t in @torrents
       data = live_data['torrents'].detect { |d| t.info_hash == d['hashString'] }
       if data
+        t.status = data['status']
         t.rate_download = data['rateDownload']
         t.rate_upload = data['rateUpload']
         t.percent_done = data['percentDone'] * 100

@@ -5,6 +5,10 @@ class ExtractedFile < ActiveRecord::Base
   
   validates_presence_of :path
   
+  before_destroy do |file|
+    File.delete(file.absolute_path) if File.exist? file.absolute_path
+  end
+  
   def file_name
     File.split(path).last
   end
