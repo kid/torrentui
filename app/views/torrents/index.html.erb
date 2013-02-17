@@ -1,6 +1,6 @@
 <%- model_class = Torrent.new.class -%>
 <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
-<table class="table table-striped">
+<table id="torrents" class="table table-striped">
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:name) %></th>
@@ -21,7 +21,7 @@
         <td><%= number_to_human_size torrent.rate_download %> / <%= number_to_human_size torrent.rate_upload %></td>
         <td><%= torrent.percent_done ? "#{torrent.percent_done.round(2)}%" : "" %></td>
         <td><%= torrent.status_message %></td>
-        <td>
+        <td nowrap>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_torrent_path(torrent), :class => 'btn btn-mini' %>
           <%= link_to t('.start', :default => t("helpers.links.start")),
@@ -48,3 +48,9 @@
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_torrent_path,
             :class => 'btn btn-primary' %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#torrents").tablesorter({});
+  });
+</script>
