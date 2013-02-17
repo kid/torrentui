@@ -4,7 +4,7 @@ class TorrentsController < ApplicationController
   # GET /torrents
   # GET /torrents.json
   def index
-    @torrents = Torrent.includes(:category, :downloaders => [:user]).all
+    @torrents = Torrent.includes(:category, :downloaders => [:user]).order('name ASC') .all
     
     live_data = transmission.request('torrent-get', :fields => [:hashString, :status, :rateDownload, :rateUpload, :percentDone])
     
