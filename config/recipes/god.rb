@@ -20,6 +20,6 @@ namespace :god do
     task command, roles: :app do
       run "#{sudo} service god_#{application} #{command}"
     end
-    after "deploy:#{command}", "god:#{command}"
+    after "deploy:#{command}", "unicorn:#{command}"
   end
 end

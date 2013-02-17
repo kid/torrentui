@@ -13,6 +13,5 @@ God.watch do |w|
   w.gid = 'sudo'
   
   w.keepalive
-  w.stop_timeout = 30.seconds
   w.behavior(:clean_pid_file)
 end
