@@ -18,11 +18,11 @@
     <th></th>
   </tr>
   <% for file in @torrent.downloaded_files do %>
-  <tr>
+  <tr id="file_<%= file.id %>">
     <td><%= file.path %></td>
     <td><%= number_to_human_size file.length %></td>
     <td>
-      <%= link_to 'Download', "/torrents/#{@torrent.id}/downloaded_files/#{file.id}/download/#{file.file_name}", :class => 'btn btn-primary btn-mini' %>
+      <%= link_to 'Download', "/torrents/#{@torrent.id}/downloaded_files/#{file.id}/download/#{file.file_name}", :class => 'btn btn-primary btn-mini', :id => "dl_file_#{file.id}" %>
       <% if file.is_archive? %>
       <%= link_to 'Extract', extract_torrent_downloaded_file_path(@torrent, file), :class => 'btn btn-mini' %>
       <% end %>
@@ -44,7 +44,7 @@
   <tr>
     <td><%= file.path %></td>
     <td><%= number_to_human_size file.length %></td>
-    <td><%= link_to 'Download', "/torrents/#{@torrent.id}/extracted_files/#{file.id}/download/#{file.file_name}", :class => 'btn btn-primary btn-mini' %></td>
+    <td><%= link_to 'Download', "/torrents/#{@torrent.id}/extracted_files/#{file.id}/download/#{file.file_name}", :class => 'btn btn-primary btn-mini',  :id => "dl_file_#{file.id}" %></td>
   </tr>
   <% end %>
 </table>
