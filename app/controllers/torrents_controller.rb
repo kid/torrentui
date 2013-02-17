@@ -18,7 +18,7 @@ class TorrentsController < ApplicationController
       end
     end
     
-    respond_with @torrent
+    respond_with @torrents
   end
 
   # GET /torrents/1
