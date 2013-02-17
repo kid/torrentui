@@ -1,4 +1,4 @@
-<%= simple_form_for @torrent, :html => { :class => 'form-horizontal', :multipart => true } do |f| %>
+<%= simple_form_for @torrent, :url => torrents_path, :html => { :class => 'form-horizontal', :multipart => true } do |f| %>
 <fieldset>
   <legend><%= controller.action_name.capitalize%> Torrent</legend>
   
