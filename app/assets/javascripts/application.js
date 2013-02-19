@@ -14,20 +14,13 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require jquery-fileupload
+//= require underscore
+//= require backbone
+//= require backbone.marionette
+//= require torrentui
+//= require_tree ../templates
+//= require_tree ./models
+//= require_tree ./collections
+//= require_tree ./views
+//= require_tree ./routers
 //= require_tree .
-
-$(document).ready(function() {
-  // $('body').on('dragenter', function(e) {
-  //   $('#new-torrent-dialog').modal()
-  //   
-  //   return false;
-  // });
-  // 
-  // $('body').on('dragover', false);
-  // 
-  // $('body').on('drop', function(e) {
-  //   alert('dropped')
-  //   
-  //   return false;
-  // });
-});

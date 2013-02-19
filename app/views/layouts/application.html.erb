@@ -41,6 +41,13 @@
     </div>
 
     <div class="container-fluid">
+      <div class="row-fluid">
+        <div id="mainContainer" class="span12">
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
       <% flash.each do |name, msg| %>
       <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
         <a class="close" data-dismiss="alert">x</a>
@@ -86,6 +93,32 @@
     </div>
     <% end %>
     
+    <script id="torrentsView" type="text/template">
+      <table id="torrents" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Users</th>
+            <th Created at %></th>
+            <th>Rates (Down / Up)</th>
+            <th>Percent done</th>
+            <th>Status</th>
+            <th nowrap />
+          </tr>
+        </thead>
+        <tbody>
+      </table>
+    </script>
+
+    <script id="torrentView" type="text/template">
+      <tr>name</tr>
+      <tr>foo</tr>
+      <tr>bar</tr>
+      <tr>0/0</tr>
+      <tr>0%</tr>
+      <tr />
+    </script>
+
     <!-- Javascripts
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
