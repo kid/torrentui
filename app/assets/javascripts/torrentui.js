@@ -4,14 +4,14 @@ var Torrent = Backbone.Model.extend({});
 var Torrents = Backbone.Collection.extend({});
 
 var TorrentView = Backbone.Marionette.ItemView.extend({
+	tagName: 'tr',
 	template: '#torrentView'
 });
 
 var TorrentsView = Backbone.Marionette.CompositeView.extend({
 	itemView: TorrentView,
 	itemViewContainer: 'tbody',
-	template: '#torrentsView',
-	tagName: 'tr',
+	template: '#torrentsView'
 });
 
 Torrentui.addRegions({
