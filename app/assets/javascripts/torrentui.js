@@ -1,7 +1,10 @@
 var Torrentui = new Backbone.Marionette.Application({});
 
 var Torrent = Backbone.Model.extend({});
-var Torrents = Backbone.Collection.extend({});
+var Torrents = Backbone.Collection.extend({
+    model: Torrent,
+    url: '/torrents'
+});
 
 var TorrentView = Backbone.Marionette.ItemView.extend({
 	tagName: 'tr',
