@@ -32,13 +32,16 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 
+gem 'jquery-rails'
+gem "jquery-fileupload-rails"
+
   gem 'less-rails'
   gem 'therubyracer'
   gem 'twitter-bootstrap-rails'
-end
 
-gem 'jquery-rails'
-gem "jquery-fileupload-rails"
+  gem 'backbone-on-rails'
+  gem 'marionette-rails'
+end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
