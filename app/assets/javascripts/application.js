@@ -10,24 +10,6 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
-//= require jquery_ujs
-//= require twitter/bootstrap
-//= require jquery-fileupload
+//= require angular
 //= require_tree .
 
-$(document).ready(function() {
-  // $('body').on('dragenter', function(e) {
-  //   $('#new-torrent-dialog').modal()
-  //   
-  //   return false;
-  // });
-  // 
-  // $('body').on('dragover', false);
-  // 
-  // $('body').on('drop', function(e) {
-  //   alert('dropped')
-  //   
-  //   return false;
-  // });
-});

@@ -12,7 +12,6 @@ gem 'devise', '< 3.0'
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 gem 'daemons'
-# gem 'rails-settings' #, :git => 'git://github.com/100hz/rails-settings.git'
 gem 'rails-settings-cached', '0.2.4'
 gem 'base32'
 gem 'bencode'
@@ -25,21 +24,21 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platform => :ruby
+  gem 'sass-rails',   '< 3.3'
 
   gem 'uglifier', '>= 1.0.3'
 
   gem 'less-rails'
   gem 'therubyracer'
-  gem 'twitter-bootstrap-rails'
 end
 
-gem 'jquery-rails'
-gem "jquery-fileupload-rails"
+gem 'bootstrap-sass'
+gem 'font-awesome-rails'
+
+# gem 'jquery-rails'
+# gem "jquery-fileupload-rails"
+gem 'angularjs-rails'
+gem 'angular-rails-templates'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
