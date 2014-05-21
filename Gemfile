@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.3'
+gem 'rails', '< 3.3'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -8,11 +8,12 @@ gem 'rails', '3.2.3'
 gem 'pg'
 
 gem 'simple_form'
-gem 'devise'
+gem 'devise', '< 3.0'
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 gem 'daemons'
-gem 'rails-settings', :git => 'git://github.com/100hz/rails-settings.git'
+# gem 'rails-settings' #, :git => 'git://github.com/100hz/rails-settings.git'
+gem 'rails-settings-cached', '0.2.4'
 gem 'base32'
 gem 'bencode'
 
