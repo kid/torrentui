@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+source 'https://rails-assets.org'
 
 gem 'rails', '< 3.3'
 
@@ -20,7 +21,7 @@ group :development do
   gem 'thin'
   gem 'quiet_assets'
 end
- 
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -32,12 +33,15 @@ group :assets do
   gem 'therubyracer'
 end
 
-gem 'bootstrap-sass'
-gem 'font-awesome-rails'
+# gem 'bootstrap-sass'
+# gem 'font-awesome-rails'
 
-# gem 'jquery-rails'
-# gem "jquery-fileupload-rails"
-gem 'angularjs-rails'
+gem 'rails-assets-bootstrap'
+gem 'rails-assets-font-awesome'
+gem 'rails-assets-angular'
+gem 'rails-assets-angular-bootstrap'
+gem 'rails-assets-angular-ui-router'
+
 gem 'angular-rails-templates'
 
 # To use ActiveModel has_secure_password

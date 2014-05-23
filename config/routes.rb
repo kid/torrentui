@@ -1,5 +1,5 @@
 Torrentui::Application.routes.draw do
-  root :to => 'torrents#index'
+  root :to => 'application#index'
   
   resources :downloaded_files
 

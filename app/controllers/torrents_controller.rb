@@ -1,5 +1,5 @@
 class TorrentsController < ApplicationController
-  respond_to :json, :html
+  respond_to :json
   
   # GET /torrents
   # GET /torrents.json

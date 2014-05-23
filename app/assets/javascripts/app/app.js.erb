@@ -1,0 +1,34 @@
+angular
+	.module('app', [
+		'ui.router', 
+		'templates', 
+		'app.controllers',
+		'app.directives',
+		'app.filters',
+		'app.services'
+	])
+	.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+
+		$urlRouterProvider.otherwise('/torrents');
+
+		$stateProvider
+			.state('torrents', {
+				abstract: true,
+				// url: '/torrents'
+			})
+			.state('torrents.list', {
+				url: '/torrents',
+				views: {
+					'content@': {
+						templateUrl: '/assets/templates/torrent.list.html',
+						controller: 'TorrentListCtrl'
+					}
+				}
+			});
+
+	}]);
+
+angular.module('app.controllers', []);
+angular.module('app.directives', []);
+angular.module('app.filters', []);
+angular.module('app.services', []);

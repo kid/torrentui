@@ -11,5 +11,8 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require angular
-//= require_tree .
+//= require angular-ui-router
+//= require angular-rails-templates
+//= require_tree ../templates
+//= require_tree ./app
 
