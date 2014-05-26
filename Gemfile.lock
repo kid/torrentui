@@ -29,10 +29,6 @@ GEM
     activesupport (3.2.18)
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
-    angular-rails-templates (0.1.2)
-      railties (>= 3.1)
-      sprockets
-      tilt
     arel (3.0.3)
     base32 (0.3.2)
     bcrypt (3.1.7)
@@ -178,7 +174,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  angular-rails-templates
   base32
   bencode
   capistrano

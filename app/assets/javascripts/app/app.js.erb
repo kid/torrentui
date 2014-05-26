@@ -9,21 +9,26 @@ angular
 	])
 	.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
 
-		$urlRouterProvider.otherwise('/torrents');
+		$urlRouterProvider.otherwise('/torrents/');
 
 		$stateProvider
-			.state('torrents', {
+			.state('torrent', {
 				abstract: true,
-				// url: '/torrents'
-			})
-			.state('torrents.list', {
 				url: '/torrents',
 				views: {
-					'content@': {
-						templateUrl: '/assets/templates/torrent.list.html',
-						controller: 'TorrentListCtrl'
+					'shell@': {
+						template: '<ui-view />'
 					}
 				}
+			})
+			.state('torrent.list', {
+				url: '/',
+				templateUrl: 'torrent.list.html',
+				controller: 'TorrentListCtrl'
+			})
+			.state('torrent.detail', {
+				url: '/:id',
+				templateUrl: 'torrent.detail.html'
 			});
 
 	}]);

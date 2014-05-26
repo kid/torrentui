@@ -42,8 +42,6 @@ gem 'rails-assets-angular'
 gem 'rails-assets-angular-bootstrap'
 gem 'rails-assets-angular-ui-router'
 
-gem 'angular-rails-templates'
-
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
