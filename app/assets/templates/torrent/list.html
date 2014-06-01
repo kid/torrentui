@@ -43,8 +43,8 @@
     <li ng-class="{'active': orderBy == 'name'}"><a href="" ng-click="orderBy = 'name'">Name</a></li>
     <li ng-class="{'active': orderBy == 'created_at'}"><a href="" ng-click="orderBy = 'created_at'">Date</a></li>
     <li ng-class="{'active': orderBy == 'percent_done'}"><a href="" ng-click="orderBy = 'percent_done'">Progress</a></li>
-    <li ng-class="{'active': orderBy == 'download_rate'}"><a href="" ng-click="orderBy = 'download_rate'">Down rate</a></li>
-    <li ng-class="{'active': orderBy == 'upload_rate'}"><a href="" ng-click="orderBy = 'upload_rate'">Up rate</a></li>
+    <li ng-class="{'active': orderBy == 'rate_download'}"><a href="" ng-click="orderBy = 'rate_download'">Down rate</a></li>
+    <li ng-class="{'active': orderBy == 'rate_upload'}"><a href="" ng-click="orderBy = 'rate_upload'">Up rate</a></li>
     
     <li class="divider"></li>
     
@@ -90,9 +90,9 @@
             <span class="text-muted" ng-repeat="item in torrent.downloaders">{{ item.user.username }}</span>
             <span class="text-muted"> on {{ torrent.created_at | date }}</span>
           </div>
-          <div class="col-md-2" ng-show="torrent | torrentActive">
-            {{ torrent.rate_download }} <span class="glyphicon glyphicon-arrow-down"></span>
-            {{ torrent.rate_upload }} <span class="glyphicon glyphicon-arrow-up"></span>
+          <div class="col-md-2 text-right" ng-show="torrent | torrentActive">
+            {{ torrent.rate_download | bytes }} <span class="glyphicon glyphicon-arrow-down"></span>
+            {{ torrent.rate_upload | bytes }} <span class="glyphicon glyphicon-arrow-up"></span>
           </div>
           <div class="col-md-2" ng-hide="torrent | torrentActive"></div>
           <div class="col-md-2">
