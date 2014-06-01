@@ -10,6 +10,7 @@ gem 'pg'
 
 gem 'simple_form'
 gem 'devise', '< 3.0'
+gem 'ng-rails-csrf'
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 gem 'daemons'
@@ -41,6 +42,7 @@ gem 'rails-assets-font-awesome'
 gem 'rails-assets-angular'
 gem 'rails-assets-angular-bootstrap'
 gem 'rails-assets-angular-ui-router'
+# gem 'rails-assets-angular-file-upload'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

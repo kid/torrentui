@@ -14,3 +14,57 @@
 
 @import "bootstrap";
 @import "font-awesome";
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.progress-bar-default {
+  background-color: lighten(#000, 60%);
+}
+
+.nav-tabs .glyphicon:not(.no-margin) { margin-right:10px; }
+// .tab-pane .list-group .glyphicon { margin-right:5px; }
+
+hr { margin-top: 5px;margin-bottom: 10px; }
+// .nav-pills > li > a {padding: 5px 10px;}
+
+.tab-pane {
+  .glyphicon {
+    margin-right: 5px;
+  }
+
+  .list-group-header {
+    font-weight: bold;
+  }
+
+  .list-group-item {
+    &:first-child {
+      border-top-left-radius: 0px;
+      border-top-right-radius: 0px;
+    }
+
+    &:last-child {
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+    }
+
+    .name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .checkbox {
+      display: inline-block;
+      margin: 0px;
+    }
+
+    .progress {
+      margin: 0;
+    }
+
+    input[type="checkbox"] {
+      margin-top: 2px;
+      float: none;
+    }
+  }
+}

@@ -7,9 +7,9 @@ class TorrentsController < ApplicationController
     @torrents = Torrent.includes(:category, :downloaders => [:user]).order('name ASC') .all
     
     live_data = transmission.request('torrent-get', :fields => [:hashString, :status, :rateDownload, :rateUpload, :percentDone])
-    
     for t in @torrents
       data = live_data['torrents'].detect { |d| t.info_hash == d['hashString'] }
+      puts data
       if data
         t.status = data['status']
         t.rate_download = data['rateDownload']
@@ -18,7 +18,7 @@ class TorrentsController < ApplicationController
       end
     end
     
-    respond_with @torrents
+    respond_with @torrents.as_json(:include => [:downloaders => {:include => :user}])
   end
 
   # GET /torrents/1
@@ -44,25 +44,25 @@ class TorrentsController < ApplicationController
   # POST /torrents
   # POST /torrents.json
   def create
-    @torrent = Torrent.new params[:torrent].except(:url, :file)
+    @torrent = Torrent.new
     @torrent.downloaders << Downloader.new(:user_id => current_user.id)
 
-    if params[:torrent][:url].blank?
-      file_content = params[:torrent][:file].read
+    if params[:url].blank?
+      file_content = params[:file].read
       info = BEncode.load(file_content)['info']
       
       @torrent.name = info['name']
       @torrent.info_hash = Digest::SHA1.hexdigest(info.bencode)
-      
       if @torrent.valid?
         result = transmission.torrent_add_file(file_content)
+        puts result
         if result['torrent-added']
           flash[:notice] = 'Torrent was successfully created.' if @torrent.save
           @torrent.delay.get_details_from_transmission
         end
       end
     else
-      link = params[:torrent][:url]
+      link = params[:url]
       if /magnet\:\?xt=urn\:btih\:([0-9a-zA-Z]+)/ =~ link
         @torrent.info_hash = $1.downcase.length == 32 ? Base32.decode($1).unpack('H*')[0].downcase : $1.downcase
         if @torrent.valid?

@@ -11,6 +11,10 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require angular
+//= require angular-bootstrap
 //= require angular-ui-router
+//= require angular-file-upload
+//= require ng-rails-csrf
+//= require devise
 //= require ./app/templates
 //= require_tree ./app

@@ -78,6 +78,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
+    ng-rails-csrf (0.1.0)
     orm_adapter (0.5.0)
     pg (0.17.1)
     polyglot (0.3.4)
@@ -182,6 +183,7 @@ DEPENDENCIES
   delayed_job_web
   devise (< 3.0)
   less-rails
+  ng-rails-csrf
   pg
   quiet_assets
   rails (< 3.3)

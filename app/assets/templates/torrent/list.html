@@ -1,0 +1,112 @@
+<div ng-file-drop="onFileDropped($files)">
+
+<div class="row">
+  <div class="col-md-12">
+
+    <div class="btn-group" dropdown>
+      <button type="button" class="btn btn-default">
+        <input type="checkbox">
+      </button>
+    </div>
+
+    <button type="button" class="btn btn-default" data-toggle="tooltip" title="Refresh" ng-click="refresh()">
+      &nbsp;&nbsp;&nbsp;<span class="fa fa-refresh" ng-class="{'fa-spin': refreshActive}"></span>&nbsp;&nbsp;&nbsp;
+    </button>
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          More <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="#">Extract</a></li>
+        <li class="divider"></li>
+        <li class="text-center"><small class="text-muted">Select torrents to see more actions</small></li>
+      </ul>
+    </div>
+
+    <div class="pull-right">
+      <input type="search" class="form-control" ng-model="filterText" placeholder="Filter...">
+    </div>
+
+  </div>
+</div>
+
+<hr />
+
+<!-- Display settings -->
+<div class="btn-group pull-right" dropdown is-open="status.isopen">
+  <button type="button" class="btn btn-default dropdown-toggle">
+    <span class="glyphicon glyphicon-cog"></span> <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Sort by</li>
+    <li ng-class="{'active': orderBy == 'name'}"><a href="" ng-click="orderBy = 'name'">Name</a></li>
+    <li ng-class="{'active': orderBy == 'created_at'}"><a href="" ng-click="orderBy = 'created_at'">Date</a></li>
+    <li ng-class="{'active': orderBy == 'percent_done'}"><a href="" ng-click="orderBy = 'percent_done'">Progress</a></li>
+    <li ng-class="{'active': orderBy == 'download_rate'}"><a href="" ng-click="orderBy = 'download_rate'">Down rate</a></li>
+    <li ng-class="{'active': orderBy == 'upload_rate'}"><a href="" ng-click="orderBy = 'upload_rate'">Up rate</a></li>
+    
+    <li class="divider"></li>
+    
+    <li class="dropdown-header">Sort type</li>
+    <li ng-class="{'active': !orderReversed}"><a href="" ng-click="orderReversed = false">Ascending</a></li>
+    <li ng-class="{'active': orderReversed}"><a href="" ng-click="orderReversed = true">Descending</a></li>
+    
+    <!-- <li class="divider"></li>
+    
+    <li class="dropdown-header">Filters</li>
+    <li>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox">Only my torrents
+        </label>
+      </div>
+    </li> -->
+  </ul>
+</div>
+
+<!-- Tabs -->
+<ul class="nav nav-tabs">
+  <li ng-class="{'active': activeTab == 'all'}"><a ng-click="setActiveTab('all')" data-toggle="tab"><span class="glyphicon glyphicon-inbox"></span>All</a></li>
+  <li ng-class="{'active': activeTab == 'downloading'}"><a ng-click="setActiveTab('downloading')" data-toggle="tab"><span class="glyphicon glyphicon-download"></span>Downloading</a></li>
+  <li ng-class="{'active': activeTab == 'seeding'}"><a ng-click="setActiveTab('seeding')" data-toggle="tab"><span class="glyphicon glyphicon-upload"></span>Seeding</a></li>
+  <li ng-class="{'active': activeTab == 'paused'}"><a ng-click="setActiveTab('paused')" data-toggle="tab"><span class="glyphicon glyphicon-remove-circle"></span>Paused</a></li>
+  <li ng-class="{'active': activeTab == 'completed'}"><a ng-click="setActiveTab('completed')" data-toggle="tab"><span class="glyphicon glyphicon-ok-circle"></span>Completed</a></li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane fade in active">
+    <div class="list-group">
+      <a class="list-group-item" ui-sref="torrent.detail({ id: torrent.id })" ng-repeat="torrent in filteredTorrents = (torrents | filter:filter) | orderBy:orderBy:orderReversed track by torrent.id">
+        <div class="row">
+          <div class="col-md-8 name">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox">
+              </label>
+            </div>
+            <span>{{ torrent.name }}</span>
+            <span class="text-muted">- Added by </span>
+            <span class="text-muted" ng-repeat="item in torrent.downloaders">{{ item.user.username }}</span>
+            <span class="text-muted"> on {{ torrent.created_at | date }}</span>
+          </div>
+          <div class="col-md-2" ng-show="torrent | torrentActive">
+            {{ torrent.rate_download }} <span class="glyphicon glyphicon-arrow-down"></span>
+            {{ torrent.rate_upload }} <span class="glyphicon glyphicon-arrow-up"></span>
+          </div>
+          <div class="col-md-2" ng-hide="torrent | torrentActive"></div>
+          <div class="col-md-2">
+            <progressbar value="torrent.percent_done" type="{{torrent | torrentStatusToStyle}}" ng-class="{'progress-striped active': {{torrent|torrentActive}}}">
+              {{ torrent.percent_done | number:2 }}%
+            </progressbar>
+          </div>
+        </div>
+      </a>
+      <div class="list-group-item" ng-hide="filteredTorrents.length">
+        <span>No items found</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

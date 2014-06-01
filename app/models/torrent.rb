@@ -1,6 +1,6 @@
 class Torrent < ActiveRecord::Base
   # attr_readonly :info_hash
-  attr_accessible :name, :category_id
+  attr_accessible :name, :category_id, :status
   attr_accessor :url, :file, :rate_download, :rate_upload, :percent_done, :status
 
   belongs_to :category
@@ -25,6 +25,16 @@ class Torrent < ActiveRecord::Base
   
   def status_message
     STATUS_CODES[self.status]
+  end
+
+  def as_json(options={})
+    data = super(options)
+    data[:status] = self.status
+    data[:rate_download] = self.rate_download
+    data[:rate_upload] = self.rate_upload
+    data[:percent_done] = self.percent_done
+    data
+    # { :status => STATUS_CODES[self.status] }
   end
   
   def get_details_from_transmission

@@ -1,37 +1,60 @@
 angular
-	.module('app', [
-		'ui.router', 
-		'templates', 
-		'app.controllers',
-		'app.directives',
-		'app.filters',
-		'app.services'
-	])
-	.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+  .module('app', [
+    'ui.bootstrap',
+    'ui.router',
+    'ng-rails-csrf',
+    'Devise',
+    'angularFileUpload',
+    'templates', 
+    'app.controllers',
+    'app.directives',
+    'app.filters',
+    'app.services'
+  ])
+  .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
 
-		$urlRouterProvider.otherwise('/torrents/');
+    $urlRouterProvider.otherwise('/torrents');
 
-		$stateProvider
-			.state('torrent', {
-				abstract: true,
-				url: '/torrents',
-				views: {
-					'shell@': {
-						template: '<ui-view />'
-					}
-				}
-			})
-			.state('torrent.list', {
-				url: '/',
-				templateUrl: 'torrent.list.html',
-				controller: 'TorrentListCtrl'
-			})
-			.state('torrent.detail', {
-				url: '/:id',
-				templateUrl: 'torrent.detail.html'
-			});
+    $stateProvider
+      .state('torrent', {
+        abstract: true,
+        url: '/torrents',
+        views: {
+          'shell@': {
+            template: '<ui-view />'
+          }
+        }
+      })
+      .state('torrent.list', {
+        url: '?tab',
+        templateUrl: 'torrent/list.html',
+        controller: 'TorrentListCtrl'
+      })
+      .state('torrent.add', {
+        url: '/add',
+        templateUrl: 'torrent/add.html',
+        controller: 'AddTorrentCtrl'
+      })
+      .state('torrent.detail', {
+        url: '/:id',
+        templateUrl: 'torrent.detail.html',
+      });
 
-	}]);
+  }])
+  .run(['Auth', function (Auth) {
+    var credentials = {
+        email: 'kid',
+        password: 'gnzEVz'
+    };
+
+    Auth
+      .login(credentials)
+      .then(function(user) {
+        console.log(user);
+      }, function(error) {
+        console.log(error);
+      });
+  }]);
 
 angular.module('app.controllers', []);
 angular.module('app.directives', []);
