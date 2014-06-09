@@ -17,6 +17,10 @@
 
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
+.btn:focus, .btn:active {
+  outline: none !important;
+}
+
 .progress-bar-default {
   background-color: lighten(#000, 60%);
 }
@@ -45,6 +49,11 @@ hr { margin-top: 5px;margin-bottom: 10px; }
     &:last-child {
       border-bottom-left-radius: 0px;
       border-bottom-right-radius: 0px;
+    }
+
+    .fa {
+      width: 15px;
+      margin-right: 5px;
     }
 
     .name {

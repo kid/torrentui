@@ -49,8 +49,21 @@ angular
       var modalInstance = $modal.open({
         templateUrl: 'torrent/add.html',
         controller: 'AddTorrentCtrl',
-        resolve: {files: function () { return files; }}
+        resolve: { files: function () { return files; } }
       });
+    };
+
+    $scope.toggleSelected = function (torrent, event) {
+      if (torrent.selected) {
+        torrent.selected = false;
+      } else {
+        torrent.selected = true;
+      }
+      
+      if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
     };
 
     $scope.refresh = function () {

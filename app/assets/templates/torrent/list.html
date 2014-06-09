@@ -5,7 +5,8 @@
 
     <div class="btn-group" dropdown>
       <button type="button" class="btn btn-default">
-        <input type="checkbox">
+        <i class="fa fa-square-o" ng-hide="torrent.selected"></i>
+        <i class="fa fa-check-square-o" ng-show="torrent.selected"></i>
       </button>
     </div>
 
@@ -15,7 +16,7 @@
 
     <div class="btn-group">
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-          More <span class="caret"></span>
+          More <span class="fa fa-caret-down">
       </button>
       <ul class="dropdown-menu" role="menu">
         <li><a href="#">Extract</a></li>
@@ -36,7 +37,7 @@
 <!-- Display settings -->
 <div class="btn-group pull-right" dropdown is-open="status.isopen">
   <button type="button" class="btn btn-default dropdown-toggle">
-    <span class="glyphicon glyphicon-cog"></span> <span class="caret"></span>
+    <span class="fa  fa-cog"></span> <span class="fa fa-caret-down"></span></span>
   </button>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Sort by</li>
@@ -77,14 +78,10 @@
 <div class="tab-content">
   <div class="tab-pane fade in active">
     <div class="list-group">
-      <a class="list-group-item" ui-sref="torrent.detail({ id: torrent.id })" ng-repeat="torrent in filteredTorrents = (torrents | filter:filter) | orderBy:orderBy:orderReversed track by torrent.id">
+      <a class="list-group-item" ui-sref="torrent.detail({ torrentId: torrent.id })" ng-repeat="torrent in filteredTorrents = (torrents | filter:filter) | orderBy:orderBy:orderReversed track by torrent.id">
         <div class="row">
           <div class="col-md-8 name">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox">
-              </label>
-            </div>
+            <i ng-click="toggleSelected(torrent, $event)" class="fa" ng-class="torrent.selected ? 'fa-check-square-o' : 'fa-square-o'"></i>
             <span>{{ torrent.name }}</span>
             <span class="text-muted">- Added by </span>
             <span class="text-muted" ng-repeat="item in torrent.downloaders">{{ item.user.username }}</span>

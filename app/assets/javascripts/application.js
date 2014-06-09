@@ -10,10 +10,13 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
+//= require ./onError
+//= require lodash
 //= require angular
 //= require angular-bootstrap
 //= require angular-ui-router
 //= require angular-file-upload
+//= require restangular
 //= require ng-rails-csrf
 //= require devise
 //= require ./app/templates

@@ -1,5 +1,6 @@
 angular
   .module('app', [
+    'restangular',
     'ui.bootstrap',
     'ui.router',
     'ng-rails-csrf',
@@ -21,14 +22,21 @@ angular
         url: '/torrents',
         views: {
           'shell@': {
-            template: '<ui-view />'
+            // template: '<ui-view />'
+            templateUrl: 'layouts/application.html'
           }
+        }, 
+        data: {
+          breadcrumbProxy: 'torrent.list'
         }
       })
       .state('torrent.list', {
         url: '?tab',
         templateUrl: 'torrent/list.html',
-        controller: 'TorrentListCtrl'
+        controller: 'TorrentListCtrl',
+        data: {
+          displayName: 'Torrents'
+        }
       })
       .state('torrent.add', {
         url: '/add',
@@ -36,15 +44,28 @@ angular
         controller: 'AddTorrentCtrl'
       })
       .state('torrent.detail', {
-        url: '/:id',
+        url: '/:torrentId',
         templateUrl: 'torrent.detail.html',
+        controller: 'TorrentDetailCtrl',
+        data: {
+          displayName: '{{ torrent.name }}'
+        },
+        resolve: {
+          torrent: ['$http', '$stateParams', function ($http, $stateParams) {
+            return $http
+              .get('/torrents/' + $stateParams.torrentId)
+              .then(function (resp) {
+                return resp.data;
+              });
+          }]
+        }
       });
 
   }])
   .run(['Auth', function (Auth) {
     var credentials = {
-        email: 'kid',
-        password: 'gnzEVz'
+      email: 'kid',
+      password: 'gnzEVz'
     };
 
     Auth
@@ -52,7 +73,7 @@ angular
       .then(function(user) {
         console.log(user);
       }, function(error) {
-        console.log(error);
+        console.error(error);
       });
   }]);
 
