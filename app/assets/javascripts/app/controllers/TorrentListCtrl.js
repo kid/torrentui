@@ -1,6 +1,8 @@
 angular
   .module('app.controllers')
-  .controller('TorrentListCtrl', ['$scope', '$state', '$stateParams', '$modal', '$http', function ($scope, $state, $stateParams, $modal, $http) {
+  .controller('TorrentListCtrl', ['$scope', '$state', '$stateParams', '$modal', '$http', 'Torrents', function ($scope, $state, $stateParams, $modal, $http, Torrents) {
+
+    window.Torrents = Torrents;
 
     var makeFilter = function (status) {
       return function (item) {
@@ -42,7 +44,8 @@ angular
     };
 
     $scope.filter = function (item) {
-      return item.name.toLowerCase().indexOf($scope.filterText.toLowerCase()) > -1 && $scope.tabs[$scope.activeTab].filter(item);
+      return item.name.toLowerCase().indexOf($scope.filterText.toLowerCase()) > -1 && 
+        $scope.tabs[$scope.activeTab].filter(item);
     };
 
     $scope.onFileDropped = function (files) {
@@ -67,12 +70,10 @@ angular
     };
 
     $scope.refresh = function () {
-      $scope.refreshActive = true;
-      $http.get('/torrents')
-        .success(function (data) {
-          $scope.torrents = data;
-          $scope.refreshActive = false;
-        });
+      Torrents.getList().then(function (torrents) {
+        $scope.torrents = torrents;
+        $scope.refreshActive = false;
+      });
     };
 
     $scope.refresh();

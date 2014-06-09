@@ -10,6 +10,7 @@ angular
     'app.controllers',
     'app.directives',
     'app.filters',
+    'app.resources',
     'app.services'
   ])
   .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
@@ -22,7 +23,6 @@ angular
         url: '/torrents',
         views: {
           'shell@': {
-            // template: '<ui-view />'
             templateUrl: 'layouts/application.html'
           }
         }, 
@@ -41,7 +41,10 @@ angular
       .state('torrent.add', {
         url: '/add',
         templateUrl: 'torrent/add.html',
-        controller: 'AddTorrentCtrl'
+        controller: 'AddTorrentCtrl',
+        data: {
+          displayName: 'Add'
+        }
       })
       .state('torrent.detail', {
         url: '/:torrentId',
@@ -51,12 +54,8 @@ angular
           displayName: '{{ torrent.name }}'
         },
         resolve: {
-          torrent: ['$http', '$stateParams', function ($http, $stateParams) {
-            return $http
-              .get('/torrents/' + $stateParams.torrentId)
-              .then(function (resp) {
-                return resp.data;
-              });
+          torrent: ['$stateParams', 'Torrents', function ($stateParams, Torrents) {
+            return Torrents.get($stateParams.torrentId);
           }]
         }
       });
@@ -80,4 +79,5 @@ angular
 angular.module('app.controllers', []);
 angular.module('app.directives', []);
 angular.module('app.filters', []);
+angular.module('app.resources', []);
 angular.module('app.services', []);

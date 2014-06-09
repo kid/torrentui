@@ -1,7 +1,7 @@
 <div ng-file-drop="onFileDropped($files)">
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-10">
 
     <div class="btn-group" dropdown>
       <button type="button" class="btn btn-default">
@@ -24,12 +24,11 @@
         <li class="text-center"><small class="text-muted">Select torrents to see more actions</small></li>
       </ul>
     </div>
+  </div>
 
-    <div class="pull-right">
+  <div class="col-md-2">
       <input type="search" class="form-control" ng-model="filterText" placeholder="Filter...">
     </div>
-
-  </div>
 </div>
 
 <hr />
@@ -37,7 +36,7 @@
 <!-- Display settings -->
 <div class="btn-group pull-right" dropdown is-open="status.isopen">
   <button type="button" class="btn btn-default dropdown-toggle">
-    <span class="fa  fa-cog"></span> <span class="fa fa-caret-down"></span></span>
+    <span class="fa fa-cog"></span> <span class="fa fa-caret-down"></span></span>
   </button>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Sort by</li>
