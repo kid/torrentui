@@ -4,9 +4,8 @@
   <div class="col-md-10">
 
     <div class="btn-group" dropdown>
-      <button type="button" class="btn btn-default">
-        <i class="fa fa-square-o" ng-hide="torrent.selected"></i>
-        <i class="fa fa-check-square-o" ng-show="torrent.selected"></i>
+      <button type="button" class="btn btn-default" ng-click="toggleSelection(filteredTorrents)">
+        <i class="fa fa-square-o" ng-class="allSelected(filteredTorrents) ? 'fa-check-square-o' : 'fa-square-o'"></i>
       </button>
     </div>
 
@@ -27,8 +26,13 @@
   </div>
 
   <div class="col-md-2">
-      <input type="search" class="form-control" ng-model="filterText" placeholder="Filter...">
+    <div class="form-inline">
+    <div class="form-group has-feedback">
+      <input type="search" class="form-control has-clear" ng-model="filterText" placeholder="Filter...">
+      <span class="clearer fa fa-times-circle-o form-control-feedback" ng-click="filterText = ''" ng-hide="filterText == ''"></span>
     </div>
+  </div>
+  </div>
 </div>
 
 <hr />

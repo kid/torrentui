@@ -56,6 +56,21 @@ angular
       });
     };
 
+    $scope.allSelected = function (filtered) {
+      return _.all(filtered, function (item) { return item.selected; });
+    };
+
+    $scope.noneSelected = function (filtered) {
+      return _.all(filtered, function (item) { return !item.selected; });
+    }
+
+    $scope.toggleSelection = function (filtered) {
+      var selected = !$scope.allSelected(filtered);
+      _.each(filtered, function (item) {
+        item.selected = selected;
+      });
+    }
+
     $scope.toggleSelected = function (torrent, event) {
       if (torrent.selected) {
         torrent.selected = false;
